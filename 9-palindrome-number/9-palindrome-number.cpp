@@ -2,15 +2,14 @@ class Solution {
 public:
     bool isPalindrome(int x) {
         
-        string num = to_string(x);
-        reverse(num.begin(),num.end());
-        if(num == to_string(x))
+        long int reverse = 0;
+        long int current = x;
+        while(current>0)
         {
-            return true;
+            reverse= reverse*10 + current%10;
+            current/=10;
         }
-        else{
-            return false;
-        }
+        return (reverse==x);
         
     }
 };
