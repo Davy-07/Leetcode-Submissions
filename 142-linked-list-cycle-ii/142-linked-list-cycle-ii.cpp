@@ -10,31 +10,28 @@ class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
         
-        if(head==NULL)
+        if(head==NULL || head->next==NULL)
         {
             return NULL;
         }
-        
-        vector<ListNode*> ref;
-        ListNode* temp = head;
-        ref.push_back(temp);
-        ListNode* ans = NULL;
-        vector<int>::iterator it;
-        while(temp->next!=NULL)
+        ListNode* fast = head;
+        ListNode* slow = head;
+        ListNode* start = head;
+        while(fast->next!=NULL && fast->next->next!=NULL)
         {
-            temp=temp->next;
-            if(find(ref.begin(),ref.end(),temp)==ref.end())
+            slow=slow->next;
+            fast=fast->next->next;
+            if(slow==fast)
             {
-                ref.push_back(temp);
+                while(start!=slow)
+                {
+                    slow=slow->next;
+                    start=start->next;
+                }
+                return start;
             }
-            else if(find(ref.begin(),ref.end(),temp)!=ref.end())
-            {
-                ans=temp;
-                break;
-            }        
         }
-        
-        return ans;
+        return NULL;
         
     }
 };
