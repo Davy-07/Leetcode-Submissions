@@ -2,51 +2,39 @@ class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
         
+        unordered_map<char,int> s1;
         unordered_map<char,int> p1;
+        
         for(int i=0;i<p.size();i++)
         {
             p1[p[i]]++;
         }
         
-        int count = p1.size();
+        vector<int> ans;
         int i=0;
         int j=0;
         int k = p.size();
-        vector<int> ans;
         while(j<s.size())
         {
-            if(p1.find(s[j])!=p1.end())
-            {
-                p1[s[j]]--;
-                if(p1[s[j]]==0)
-                {
-                    count--;
-                }
-            }
-            
+            s1[s[j]]++;
             if(j-i+1<k)
             {
                 j++;
             }
-            
             else if(j-i+1==k)
             {
-                if(count==0)
+                if(s1==p1)
                 {
                     ans.push_back(i);
                 }
-                if(p1.find(s[i])!=p1.end())
+                s1[s[i]]--;
+                if(s1[s[i]]==0)
                 {
-                    p1[s[i]]++;
-                    if(p1[s[i]]==1)
-                    {
-                        count++;
-                    }
+                    s1.erase(s[i]);
                 }
                 i++;
                 j++;
             }
-            
         }
         return ans;
     }
