@@ -11,30 +11,20 @@
  */
 class Solution {
 public:
-    vector<TreeNode*> v;
-    
-    void preOrder(TreeNode* root)
-    {
+    //Recursive Approach
+    TreeNode* prev = NULL;
+    void flatten(TreeNode* root) {
         if(root==NULL)
         {
             return;
         }
         
-        v.push_back(root);
-        preOrder(root->left);
-        preOrder(root->right);
-    }
-    void flatten(TreeNode* root) {
+        flatten(root->right);
+        flatten(root->left);
         
-        preOrder(root);
+        root->left = NULL;
+        root->right = prev;
         
-        for(int i=1;i<v.size();i++)
-        {
-            root->left = NULL;
-            root->right = v[i];
-            root = root->right;
-        }
-        
-        
+        prev = root;
     }
 };
