@@ -6,33 +6,27 @@ public:
         {
             return 0;
         }
+        int max_ans = 0;
+        int i=0;
         int j=0;
-        int i = 0;
         set<char> st;
-        int max_ans = 1;
-        while(j<s.size())
+        for(int j=0;j<s.size();j++)
         {
-            if(st.find(s[j])==st.end())
+            if(!st.count(s[j]))
             {
                 st.insert(s[j]);
-                j++;;
+                max_ans = max(max_ans,j-i+1);
             }
-            else if(st.find(s[j])!=st.end())
-            {
-                if(st.size()>max_ans)
+            else{
+                while(st.count(s[j]))
                 {
-                    max_ans = st.size();
+                    st.erase(s[i]);
+                    i++;
                 }
-                st.clear();
-                i++;
-                j=i;
+                st.insert(s[j]);
             }
-            
         }
-        if(st.size()>max_ans)
-        {
-            max_ans = st.size();
-        }
+        
         return max_ans;
     }
 };
