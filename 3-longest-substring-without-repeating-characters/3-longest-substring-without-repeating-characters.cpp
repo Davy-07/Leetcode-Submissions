@@ -8,30 +8,30 @@ public:
         }
         int j=0;
         int i = 0;
-        unordered_map<char,int> m;
+        set<char> st;
         int max_ans = 1;
         while(j<s.size())
         {
-            if(m.find(s[j])==m.end())
+            if(st.find(s[j])==st.end())
             {
-                m[s[j]]++;
+                st.insert(s[j]);
                 j++;;
             }
-            else if(m.find(s[j])!=m.end())
+            else if(st.find(s[j])!=st.end())
             {
-                if(m.size()>max_ans)
+                if(st.size()>max_ans)
                 {
-                    max_ans = m.size();
+                    max_ans = st.size();
                 }
-                m.clear();
+                st.clear();
                 i++;
                 j=i;
             }
             
         }
-        if(m.size()>max_ans)
+        if(st.size()>max_ans)
         {
-            max_ans = m.size();
+            max_ans = st.size();
         }
         return max_ans;
     }
