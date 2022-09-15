@@ -5,7 +5,7 @@ public:
         public:
         bool operator()(pair<int,int> const &a,pair<int,int> const &b)
         {
-            return a.second > b.second;
+            return a.second < b.second;
         }
             
     };
@@ -20,10 +20,6 @@ public:
         for(auto it:m)
         {
             pq.push({it.first,it.second});
-            if(pq.size()>k)
-            {
-                pq.pop();
-            }
         }
         
         for(int i=0;i<k;i++)
