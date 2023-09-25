@@ -1,32 +1,35 @@
 class Solution {
 public:
-    void nextPermutation(vector<int>& arr) {
-
-            int index1,index2,i,j;
-            for(i=arr.size()-2;i>=0;i--)
-            {
-                if(arr[i+1]>arr[i])
-                {
-                    index1 = i;
-                    break;
+    void nextPermutation(vector<int>& nums) {
+        int break_point = -1;
+        for(int i=nums.size()-2;i>=0;i--){
+            if(nums[i+1]>nums[i]){
+                break_point = i;
+                break;
+            }
+        }
+        int min_no = INT_MAX;
+        int index;
+        if(break_point == -1){
+            sort(nums.begin(),nums.end());
+        }
+        else{
+            for(int i=break_point+1;i<nums.size();i++){
+                if(nums[i]>nums[break_point]){
+                    if(nums[i]<min_no){
+                        min_no = nums[i];
+                        index = i;
+                    }  
                 }
             }
-            if(i<0)
-            {
-                reverse(arr.begin(),arr.end());
-            }
-            else{
-                    for(j=arr.size()-1;j>i;j--)
-                    {
-                        if(arr[j]>arr[index1])
-                        {
-                            break;
-                        }
-                    }
+                
+            swap(nums[index],nums[break_point]);
+            sort(nums.begin()+break_point+1,nums.end());
+            
 
-                    swap(arr[index1],arr[j]);
-                    reverse(arr.begin()+index1+1,arr.end());
-            }
+
+        }
+
 
     }
 };
